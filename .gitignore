@@ -7,3 +7,8 @@ data/cache/
 .env
 # Sujet fourni par l'enseignante (non versionné)
 Projet - *.pdf
+data/responses/
+web/node_modules/
+web/dist/
+*.tsbuildinfo
+.claude/

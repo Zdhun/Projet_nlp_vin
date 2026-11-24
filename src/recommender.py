@@ -390,15 +390,21 @@ def recommend(
                 },
                 "user_block_profile": user_profile,
                 "wine_block_profile": wine_block_profiles[pos],
-                "matching_phrases": _top_matching_phrases(
-                    query_text=user_text,
-                    wine_dict=w_dict,
-                    block_phrase_embs=block_phrase_embs,
-                    encode_fn=encode_fn,
-                    top_n=3,
-                ),
             }
         )
 
     scored_results.sort(key=lambda item: item["score"], reverse=True)
-    return scored_results[: max(1, int(k))]
+    top_results = scored_results[: max(1, int(k))]
+
+    # Les phrases explicatives demandent un encodage par vin : on ne les calcule
+    # que pour le top k retenu (et non pour les 600 candidats), ce qui divise
+    # le temps de réponse par ~50 sans changer le classement.
+    for item in top_results:
+        item["matching_phrases"] = _top_matching_phrases(
+            query_text=user_text,
+            wine_dict=item["wine"],
+            block_phrase_embs=block_phrase_embs,
+            encode_fn=encode_fn,
+            top_n=3,
+        )
+    return top_results

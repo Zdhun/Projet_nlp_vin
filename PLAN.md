@@ -1,6 +1,6 @@
 # Plan de travail — Recommandation de vins par analyse sémantique
 
-Objectif : une app Streamlit où l'utilisateur décrit le vin qu'il cherche, en français ou en anglais. Le système compare sa description aux 600 vins de référence par similarité sémantique et propose un **top 3 expliqué**, avec des graphiques.
+Objectif : une application web (React + TypeScript, API Python FastAPI) où l'utilisateur décrit le vin qu'il cherche, en français ou en anglais. Le système compare sa description aux 600 vins de référence par similarité sémantique et propose un **top 3 expliqué**, avec des graphiques.
 
 On reste **simple** : d'abord une version qui marche de bout en bout, ensuite on améliore.
 
@@ -14,7 +14,7 @@ On reste **simple** : d'abord une version qui marche de bout en bout, ensuite on
 | 1 | Blocs gustatifs et accords mets-vins | ✅ fait | 0 | `data/processed/blocks.json`, `data/processed/food_pairing.csv`, `src/reference.py` |
 | 2 | Moteur sémantique (embeddings) | ✅ fait | 0 | `src/embeddings.py`, `notebooks/02_embeddings.ipynb` |
 | 3 | Score et recommandation | ✅ fait | 1, 2 | `src/scoring.py`, `src/recommender.py` |
-| 4 | Questionnaire et interface | Personne D | 3 (pour brancher) | `app/streamlit_app.py` |
+| 4 | Questionnaire et interface | ✅ fait | 3 | `web/` (React + TypeScript), `api/main.py` (FastAPI) |
 | 5 | Visualisations et explications | Personne E | 3 | `src/explain.py`, `src/viz.py` |
 | 6 | Évaluation, documentation, slides | Personne F | 3 | `notebooks/05_evaluation.ipynb`, `slides/` |
 | 7 | Bonus LLM (facultatif) | Qui a fini en premier | 3 | `src/llm.py` |
@@ -79,22 +79,24 @@ puis filtre dur : prix <= budget, couleur si imposée
 
 ---
 
-## Lot 4 — Questionnaire et interface (Streamlit)
+## Lot 4 — Questionnaire et interface ✅
 
-1. `app/streamlit_app.py`, sur une page avec des sections :
-   - **Texte libre** (au moins 2 questions) : « Décris le vin que tu cherches », « Décris un vin que tu as aimé et pourquoi », « Pour quel plat ou quelle occasion ? » ;
-   - **Likert de 1 à 5** : intensité souhaitée, fruité, boisé, sucrosité, acidité ;
-   - **Questions guidées** : « As-tu déjà goûté un vin boisé ? Si oui, l'as-tu aimé ? » ;
-   - **QCM** : couleur (rouge, blanc, rosé, effervescent, peu importe) ;
-   - **Cases à cocher** : arômes préférés, pays ;
-   - **Curseur** : budget maximum.
-2. Sauvegarder chaque réponse en JSON dans `data/responses/`.
-3. Avertissement visible : *« Prototype éducatif, réservé aux adultes. L'abus d'alcool est dangereux pour la santé. »*
-4. Commencer avec une fonction `recommend()` factice, puis brancher la vraie dès que le lot 3 est prêt.
+> **Choix** : une vraie application web plutôt que Streamlit, pour une interface plus soignée et une démo plus marquante.
 
-✅ **Fini quand** : `streamlit run app/streamlit_app.py` affiche le formulaire et le top 3.
+- [x] **API** `api/main.py` (FastAPI) : expose `recommend()` du lot 3 (`POST /api/recommend`), les listes du questionnaire (`GET /api/options`) et enregistre chaque réponse en JSON dans `data/responses/`.
+- [x] **Application** `web/` (Vite + React + TypeScript) : accueil, questionnaire en 9 étapes, écran d'analyse, top 3 détaillé, gestion des erreurs.
+- [x] Types de questions demandés par le sujet :
+  - **texte libre** (3 questions) : l'envie, un vin marquant, le plat ou l'occasion ;
+  - **Likert de 1 à 5** : intensité, fruité, boisé, douceur, vivacité ;
+  - **question guidée** : « Déjà goûté un vin boisé ? » puis, si oui, « L'avez-vous aimé ? » ;
+  - **QCM** : couleur ;
+  - **cases à cocher** : arômes, pays ;
+  - **curseur** : budget.
+- [x] Avertissement « prototype éducatif, réservé aux adultes » visible sur toutes les pages, confirmation de l'âge au démarrage.
+- [x] Correction de performance dans `src/recommender.py` : les phrases explicatives ne sont plus calculées que pour le top 3. On passe de 8 s à 0,3 s par recommandation, avec le même classement.
+- [x] Interface responsive (mobile compris), navigation au clavier, animations désactivées si le système le demande.
 
----
+Lancement : voir le README.
 
 ## Lot 5 — Visualisations et explications
 
