@@ -53,6 +53,44 @@ python scripts/prepare_data.py
 - 17 pays, dont US 194, France 118, Italie 110 ;
 - prix médian 25 $, de 7 $ à 320 $.
 
+## Blocs gustatifs (`processed/blocks.json`)
+
+Le sujet demande des **catégories** et un **score de couverture par bloc**. On définit 5 blocs qui structurent un profil gustatif. Chaque bloc contient 8 à 12 **phrases de référence**, soit 46 au total.
+
+| Bloc | `id` | Phrases | Exemples |
+|---|---|---|---|
+| Arômes fruités | `fruit` | 8 | fruits rouges, fruits noirs, agrumes, exotiques, confiturés… |
+| Épices, boisé et notes évoluées | `spice_oak` | 8 | vanille et toasté, poivre, cuir et tabac, chocolat et café… |
+| Floral, végétal et minéral | `floral_mineral` | 8 | fleurs blanches, violette, herbacé, minéral, salin… |
+| Structure et style en bouche | `structure` | 10 | léger, corsé, tanins fermes ou soyeux, vif, doux, pétillant… |
+| Accords mets et occasions | `pairing` | 12 | viande rouge, fruits de mer, fromages, épicé, apéritif, fête… |
+
+**Choix de conception :**
+- **Phrases en anglais**, dans le style des critiques : elles sont comparées par embeddings aux descriptions, qui sont en anglais. Le champ `label_fr` sert à l'affichage dans l'interface (cases à cocher, axes du radar).
+- **Ancrées dans le corpus** : les termes ont été choisis parmi les descripteurs fréquents du corpus. Exemples : cerise dans 21 % des descriptions, épices 17 %, boisé 15 %, prune 12,5 %, minéral 8,5 %.
+- **Une phrase par famille d'arômes**, et non par mot isolé : un embedding de phrase capte mieux « fruits noirs : mûre, cassis, prune » qu'un mot seul.
+- **Poids** : 1,0 pour chaque bloc par défaut (`weight`). Le lot 3 pourra les ajuster selon l'importance déclarée par l'utilisateur dans les questions Likert.
+- **Bloc `pairing`** : les plats sont cités dans **moins de 3 %** des descriptions (« steak » 0,7 %, « fish » 0,5 %). Ce bloc est donc mesuré sur la description **enrichie** par la table d'accords (`text_source: description+food_pairing`, voir `src/reference.py:enriched_text`).
+
+## Accords mets-vins (`processed/food_pairing.csv`)
+
+Il y a une ligne pour chacun des 40 cépages du jeu de référence.
+
+| Colonne | Contenu |
+|---|---|
+| `variety` | Cépage (même libellé que `wines_reference.csv`) |
+| `foods_en` | Plats en anglais, séparés par `;`. Utilisés pour l'embedding. |
+| `foods_fr` | Mêmes plats en français, pour l'affichage |
+| `occasions_en` | Occasions (apéritif, barbecue, dîner élégant…), séparées par `;` |
+
+**Source :** table compilée par le groupe à partir des accords classiques par cépage, tels que les donnent les guides grand public (par exemple Wine Folly) et la littérature œnologique courante. Ce sont des **règles générales par cépage** : elles ne remplacent pas un avis de sommelier sur un vin précis.
+
+**Utilisation** (`src/reference.py`) :
+- `pairing_text("Pinot Noir")` renvoie `"Pairs well with salmon, duck, roast chicken, mushrooms, soft cheese. Ideal for elegant dinner, casual dinner."` ;
+- `enriched_text(vin)` renvoie la description du vin suivie de cette phrase.
+
+Les tests de cohérence (`tests/test_reference.py`) vérifient trois choses : il y a 5 blocs, les identifiants sont uniques, et chaque cépage de référence a un accord.
+
 ## Limites connues
 
 - Les descriptions sont en **anglais** : il faudra un modèle d'embeddings multilingue si le questionnaire est en français.

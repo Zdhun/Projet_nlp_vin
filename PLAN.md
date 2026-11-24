@@ -11,7 +11,7 @@ On reste **simple** : d'abord une version qui marche de bout en bout, ensuite on
 | # | Lot | Qui | Dépend de | Fichiers |
 |---|---|---|---|---|
 | 0 | Données | ✅ fait | — | `data/`, `scripts/prepare_data.py` |
-| 1 | Blocs gustatifs et accords mets-vins | Personne A | 0 | `data/processed/blocks.json`, `data/processed/food_pairing.csv` |
+| 1 | Blocs gustatifs et accords mets-vins | ✅ fait | 0 | `data/processed/blocks.json`, `data/processed/food_pairing.csv`, `src/reference.py` |
 | 2 | Moteur sémantique (embeddings) | Personne B | 0 | `src/embeddings.py`, `notebooks/02_embeddings.ipynb` |
 | 3 | Score et recommandation | Personne C | 1, 2 | `src/scoring.py`, `src/recommender.py` |
 | 4 | Questionnaire et interface | Personne D | 3 (pour brancher) | `app/streamlit_app.py` |
@@ -24,7 +24,10 @@ On reste **simple** : d'abord une version qui marche de bout en bout, ensuite on
 
 ---
 
-## Lot 1 — Blocs gustatifs et accords mets-vins
+## Lot 1 — Blocs gustatifs et accords mets-vins ✅
+
+> **Réalisé** : 5 blocs (Arômes fruités, Épices et boisé, Floral et minéral, Structure et style, Accords et occasions) avec 46 phrases. La table d'accords couvre les 40 cépages. Le chargement se fait par `src/reference.py`, testé dans `tests/test_reference.py`. Le détail est dans `data/README.md`.
+> Écart avec le plan initial : « Structure » et « Style » sont fusionnés, et un bloc « Floral et minéral » est ajouté, car ces notes sont fréquentes dans les critiques.
 
 Le sujet demande des **catégories ou blocs** et un **score de couverture**. On définit 5 blocs qui structurent un profil gustatif.
 

@@ -1,0 +1,103 @@
+{
+  "version": 1,
+  "language": "en",
+  "notes": "Blocs gustatifs de référence. Chaque phrase (text_en) est rédigée dans le vocabulaire des critiques Wine Enthusiast pour être comparée par embeddings aux descriptions des vins et aux réponses des utilisateurs. label_fr sert à l'affichage dans l'interface (cases à cocher, radar). Le bloc 'pairing' est évalué sur la description du vin ENRICHIE par la table food_pairing.csv, car les plats sont rarement cités dans les critiques (< 3 % des descriptions).",
+  "blocks": [
+    {
+      "id": "fruit",
+      "name_fr": "Arômes fruités",
+      "name_en": "Fruit aromas",
+      "description_fr": "Familles de fruits perçues au nez et en bouche.",
+      "weight": 1.0,
+      "text_source": "description",
+      "phrases": [
+        {"id": "fruit_red", "label_fr": "Fruits rouges (cerise, framboise, fraise)", "text_en": "bright red fruit aromas of cherry, raspberry and strawberry"},
+        {"id": "fruit_black", "label_fr": "Fruits noirs (mûre, cassis, prune)", "text_en": "dark fruit flavors of blackberry, black currant, cassis and plum"},
+        {"id": "fruit_citrus", "label_fr": "Agrumes (citron, citron vert, pamplemousse)", "text_en": "zesty citrus notes of lemon, lime and grapefruit"},
+        {"id": "fruit_orchard", "label_fr": "Fruits du verger (pomme, poire)", "text_en": "fresh orchard fruit flavors of green apple and pear"},
+        {"id": "fruit_stone", "label_fr": "Fruits à noyau (pêche, abricot)", "text_en": "juicy stone fruit aromas of white peach, nectarine and apricot"},
+        {"id": "fruit_tropical", "label_fr": "Fruits exotiques (ananas, mangue, melon)", "text_en": "lush tropical fruit notes of pineapple, mango, passion fruit and melon"},
+        {"id": "fruit_ripe", "label_fr": "Fruits mûrs, confiturés", "text_en": "ripe, jammy fruit with concentrated flavors of baked berries and fruit compote"},
+        {"id": "fruit_dried", "label_fr": "Fruits secs (raisin sec, figue, datte)", "text_en": "dried fruit aromas of raisin, fig, date and prune"}
+      ]
+    },
+    {
+      "id": "spice_oak",
+      "name_fr": "Épices, boisé et notes évoluées",
+      "name_en": "Spice, oak and savory notes",
+      "description_fr": "Notes apportées par le bois, l'élevage et le vieillissement.",
+      "weight": 1.0,
+      "text_source": "description",
+      "phrases": [
+        {"id": "oak_vanilla", "label_fr": "Boisé, vanille, toasté", "text_en": "toasty oak with vanilla, caramel and buttered toast notes"},
+        {"id": "spice_pepper", "label_fr": "Poivre et épices", "text_en": "spicy notes of black pepper, clove and cinnamon"},
+        {"id": "spice_licorice", "label_fr": "Réglisse, anis", "text_en": "hints of licorice, anise and sweet baking spice"},
+        {"id": "savory_leather", "label_fr": "Cuir, tabac, sous-bois", "text_en": "savory aromas of leather, tobacco, forest floor and earth"},
+        {"id": "savory_cocoa", "label_fr": "Chocolat, café, moka", "text_en": "rich notes of dark chocolate, coffee and mocha"},
+        {"id": "savory_smoke", "label_fr": "Fumé, grillé", "text_en": "smoky, charred and roasted aromas"},
+        {"id": "oak_butter", "label_fr": "Beurré, crémeux", "text_en": "creamy, buttery texture with brioche and hazelnut notes"},
+        {"id": "savory_nutty", "label_fr": "Fruits secs à coque, oxydatif", "text_en": "nutty, oxidative notes of almond, walnut and toffee"}
+      ]
+    },
+    {
+      "id": "floral_mineral",
+      "name_fr": "Floral, végétal et minéral",
+      "name_en": "Floral, herbal and mineral",
+      "description_fr": "Notes de fleurs, d'herbes et de minéralité.",
+      "weight": 1.0,
+      "text_source": "description",
+      "phrases": [
+        {"id": "floral_white", "label_fr": "Fleurs blanches (acacia, chèvrefeuille)", "text_en": "delicate white flower aromas of acacia, honeysuckle and orange blossom"},
+        {"id": "floral_red", "label_fr": "Rose, violette", "text_en": "perfumed floral notes of rose petal and violet"},
+        {"id": "floral_aromatic", "label_fr": "Très aromatique (litchi, jasmin)", "text_en": "intensely aromatic and exotic with lychee, jasmine and rose water"},
+        {"id": "herbal_green", "label_fr": "Herbacé, végétal (herbe coupée, poivron)", "text_en": "green herbal notes of cut grass, green bell pepper and gooseberry"},
+        {"id": "herbal_garrigue", "label_fr": "Herbes aromatiques (thym, menthe, garrigue)", "text_en": "dried herbs, thyme, mint, sage and garrigue"},
+        {"id": "mineral_stone", "label_fr": "Minéral (pierre, craie, silex)", "text_en": "stony minerality with notes of wet stone, chalk and flint"},
+        {"id": "mineral_saline", "label_fr": "Salin, iodé", "text_en": "saline, briny and sea-spray character"},
+        {"id": "mineral_petrol", "label_fr": "Notes pétrolées, miel (Riesling évolué)", "text_en": "petrol and honeyed notes typical of aged Riesling"}
+      ]
+    },
+    {
+      "id": "structure",
+      "name_fr": "Structure et style en bouche",
+      "name_en": "Body, structure and style",
+      "description_fr": "Corps, tanins, acidité, sucrosité, bulles et style général.",
+      "weight": 1.0,
+      "text_source": "description",
+      "phrases": [
+        {"id": "body_light", "label_fr": "Léger et frais", "text_en": "light-bodied, fresh and easy-drinking"},
+        {"id": "body_full", "label_fr": "Corsé et puissant", "text_en": "full-bodied, bold, powerful and concentrated"},
+        {"id": "tannin_firm", "label_fr": "Tanins fermes, structuré", "text_en": "firm, grippy tannins and a structured, age-worthy palate"},
+        {"id": "tannin_soft", "label_fr": "Tanins souples, soyeux", "text_en": "soft, silky and velvety tannins with a smooth texture"},
+        {"id": "acid_crisp", "label_fr": "Vif, belle acidité", "text_en": "crisp, bright and lively acidity with a refreshing finish"},
+        {"id": "sweet", "label_fr": "Doux, moelleux", "text_en": "sweet, luscious and rich dessert-style wine"},
+        {"id": "dry", "label_fr": "Sec", "text_en": "bone-dry, lean and austere"},
+        {"id": "sparkling", "label_fr": "Pétillant, bulles fines", "text_en": "sparkling with fine bubbles and a creamy mousse"},
+        {"id": "elegant", "label_fr": "Élégant, raffiné", "text_en": "elegant, refined, balanced and delicate"},
+        {"id": "long_finish", "label_fr": "Longue finale", "text_en": "long, persistent and complex finish"}
+      ]
+    },
+    {
+      "id": "pairing",
+      "name_fr": "Accords mets et occasions",
+      "name_en": "Food pairing and occasions",
+      "description_fr": "Plats et moments de consommation. Évalué sur la description du vin enrichie par food_pairing.csv.",
+      "weight": 1.0,
+      "text_source": "description+food_pairing",
+      "phrases": [
+        {"id": "pair_red_meat", "label_fr": "Viande rouge, grillades, barbecue", "text_en": "pairs with grilled red meat, steak, lamb and barbecue"},
+        {"id": "pair_poultry", "label_fr": "Volaille, viande blanche", "text_en": "pairs with roast chicken, turkey, pork and veal"},
+        {"id": "pair_seafood", "label_fr": "Poisson, fruits de mer, huîtres", "text_en": "pairs with fish, shellfish, oysters and seafood"},
+        {"id": "pair_cheese", "label_fr": "Fromages", "text_en": "pairs with a cheese platter, aged cheese and soft cheese"},
+        {"id": "pair_pasta_pizza", "label_fr": "Pâtes, pizza, cuisine italienne", "text_en": "pairs with pasta with tomato sauce, pizza and Italian cuisine"},
+        {"id": "pair_spicy", "label_fr": "Cuisine épicée ou asiatique", "text_en": "pairs with spicy food, Asian cuisine, curry and Thai dishes"},
+        {"id": "pair_vegetarian", "label_fr": "Légumes, salades, plats végétariens", "text_en": "pairs with salads, vegetables, mushrooms and vegetarian dishes"},
+        {"id": "pair_dessert", "label_fr": "Desserts", "text_en": "pairs with desserts, chocolate, fruit tarts and blue cheese"},
+        {"id": "occ_aperitif", "label_fr": "Apéritif, entre amis", "text_en": "perfect as an aperitif or for a casual drink with friends"},
+        {"id": "occ_celebration", "label_fr": "Fête, célébration", "text_en": "ideal for a celebration, a toast or a festive occasion"},
+        {"id": "occ_dinner", "label_fr": "Dîner élégant", "text_en": "suited to an elegant dinner or a special meal"},
+        {"id": "occ_summer", "label_fr": "Été, terrasse, pique-nique", "text_en": "a refreshing choice for summer, a terrace or a picnic"}
+      ]
+    }
+  ]
+}
