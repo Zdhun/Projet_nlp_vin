@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "query": "un blanc vif et minéral pour accompagner des huîtres",
+    "expected_color": "white",
+    "expected_varieties": ["Sauvignon Blanc", "Muscadet", "Albariño", "Chablis", "Chardonnay", "Pinot Grigio"]
+  },
+  {
+    "id": 2,
+    "query": "un vin rouge léger et fruité avec des notes de cerise, pas trop tannique",
+    "expected_color": "red",
+    "expected_varieties": ["Pinot Noir", "Gamay", "Beaujolais", "Grenache", "Barbera"]
+  },
+  {
+    "id": 3,
+    "query": "un rouge puissant, boisé et épicé pour une côte de bœuf grillée",
+    "expected_color": "red",
+    "expected_varieties": ["Cabernet Sauvignon", "Syrah", "Shiraz", "Malbec", "Bordeaux-style Red Blend", "Tempranillo"]
+  },
+  {
+    "id": 4,
+    "query": "a crisp and zesty white wine with citrus and green apple notes",
+    "expected_color": "white",
+    "expected_varieties": ["Sauvignon Blanc", "Pinot Grigio", "Riesling", "Albariño", "Grüner Veltliner"]
+  },
+  {
+    "id": 5,
+    "query": "un vin blanc riche, rond et beurré élevé en fût de chêne",
+    "expected_color": "white",
+    "expected_varieties": ["Chardonnay", "Viognier", "White Blend"]
+  },
+  {
+    "id": 6,
+    "query": "un vin doux ou demi-sec aromatique pour un dessert aux fruits ou du foie gras",
+    "expected_color": "white",
+    "expected_varieties": ["Riesling", "Gewürztraminer", "Chenin Blanc", "Moscato", "Sauternes"]
+  },
+  {
+    "id": 7,
+    "query": "un rosé frais et léger pour l'apéritif en été",
+    "expected_color": "rose",
+    "expected_varieties": ["Rosé", "Grenache", "Syrah", "Pinot Noir"]
+  },
+  {
+    "id": 8,
+    "query": "des bulles fines et festives pour célébrer un anniversaire",
+    "expected_color": "sparkling",
+    "expected_varieties": ["Champagne Blend", "Sparkling Blend", "Prosecco", "Glera", "Cava", "Chardonnay", "Pinot Noir"]
+  },
+  {
+    "id": 9,
+    "query": "full-bodied red wine with black pepper, leather and dark plum flavors",
+    "expected_color": "red",
+    "expected_varieties": ["Syrah", "Shiraz", "Cabernet Sauvignon", "Malbec", "Zinfandel", "Rhône-style Red Blend"]
+  },
+  {
+    "id": 10,
+    "query": "un rouge souple et gourmand pour accompagner un plateau de fromages ou de la charcuterie",
+    "expected_color": "red",
+    "expected_varieties": ["Merlot", "Pinot Noir", "Gamay", "Grenache", "Sangiovese"]
+  },
+  {
+    "id": 11,
+    "query": "un vin blanc floral et parfumé aux notes de pêche et d'abricot",
+    "expected_color": "white",
+    "expected_varieties": ["Viognier", "Gewürztraminer", "Riesling", "Torrontés", "Pinot Gris"]
+  },
+  {
+    "id": 12,
+    "query": "un rouge italien avec une belle acidité pour des pâtes à la sauce tomate",
+    "expected_color": "red",
+    "expected_varieties": ["Sangiovese", "Barbera", "Nebbiolo", "Chianti", "Montepulciano"]
+  },
+  {
+    "id": 13,
+    "query": "an elegant, earthy red wine that pairs well with duck and mushrooms",
+    "expected_color": "red",
+    "expected_varieties": ["Pinot Noir", "Nebbiolo", "Merlot", "Cabernet Franc"]
+  },
+  {
+    "id": 14,
+    "query": "un vin blanc sec et herbacé pour du fromage de chèvre",
+    "expected_color": "white",
+    "expected_varieties": ["Sauvignon Blanc", "Chenin Blanc", "Sancerre", "Grüner Veltliner"]
+  },
+  {
+    "id": 15,
+    "query": "un rouge chaleureux et confituré aux fruits noirs mûrs et vanille",
+    "expected_color": "red",
+    "expected_varieties": ["Zinfandel", "Malbec", "Shiraz", "Syrah", "Cabernet Sauvignon", "Merlot"]
+  },
+  {
+    "id": 16,
+    "query": "light and refreshing white wine for grilled fish and seafood",
+    "expected_color": "white",
+    "expected_varieties": ["Pinot Grigio", "Sauvignon Blanc", "Albariño", "Vermentino", "Chardonnay"]
+  },
+  {
+    "id": 17,
+    "query": "un vin rouge structuré avec des tanins fermes capable de vieillir",
+    "expected_color": "red",
+    "expected_varieties": ["Cabernet Sauvignon", "Nebbiolo", "Bordeaux-style Red Blend", "Syrah", "Tempranillo"]
+  },
+  {
+    "id": 18,
+    "query": "un blanc exotique avec des arômes d'ananas et de mangue",
+    "expected_color": "white",
+    "expected_varieties": ["Chardonnay", "Sauvignon Blanc", "Viognier", "Chenin Blanc"]
+  },
+  {
+    "id": 19,
+    "query": "a fruity, easy-drinking red wine without heavy oak",
+    "expected_color": "red",
+    "expected_varieties": ["Pinot Noir", "Gamay", "Grenache", "Merlot", "Barbera"]
+  },
+  {
+    "id": 20,
+    "query": "un vin effervescent sec et vif pour l'apéritif",
+    "expected_color": "sparkling",
+    "expected_varieties": ["Sparkling Blend", "Champagne Blend", "Prosecco", "Glera", "Cava"]
+  }
+]
