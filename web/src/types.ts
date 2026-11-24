@@ -1,5 +1,7 @@
 // Types partagés entre l'interface et l'API Python (api/main.py).
 
+import type { Data, Layout } from "plotly.js";
+
 export type BlockId = "fruit" | "spice_oak" | "floral_mineral" | "structure" | "pairing";
 export type YesNo = "yes" | "no";
 export type WineColor = "red" | "white" | "rose" | "sparkling" | "dessert";
@@ -65,9 +67,24 @@ export interface Recommendation {
   user_blocks: Record<BlockId, number>;
   wine_blocks: Record<BlockId, number>;
   reasons: { block: BlockId | null; label: string; similarity: number }[];
+  explanation: string;
+}
+
+export interface PlotFigure {
+  data: Data[];
+  layout: Partial<Layout>;
+}
+
+export interface RecommendationAnalysis {
+  radar: PlotFigure;
+  ranking: PlotFigure;
+  heatmap: PlotFigure | null;
+  ranked_wines: { title: string; score: number }[];
+  sentences: { text: string; scores: Record<BlockId, number> }[];
 }
 
 export interface RecommendResponse {
   id: string;
   results: Recommendation[];
+  analysis: RecommendationAnalysis;
 }

@@ -831,6 +831,110 @@ button {
   margin-top: 2rem;
 }
 
+.charts {
+  max-width: 82rem;
+  margin-inline: auto;
+  padding: 0 var(--gutter) clamp(3.5rem, 8vw, 6rem);
+}
+
+.charts__title {
+  margin-bottom: 1.25rem;
+  font-size: var(--step-2);
+  letter-spacing: -0.025em;
+}
+
+.charts__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 1rem;
+}
+
+.chart {
+  min-width: 0;
+  margin: 0;
+  padding: clamp(0.75rem, 2vw, 1.5rem);
+  border: 1px solid var(--hairline);
+  border-radius: 1rem;
+}
+
+.chart--wide {
+  grid-column: 1 / -1;
+}
+
+.chart figcaption h3 {
+  font-size: var(--step-0);
+}
+
+.chart figcaption p {
+  margin-top: 0.25rem;
+  color: var(--graphite);
+  font-size: var(--step--1);
+}
+
+.chart__plot {
+  min-width: 0;
+  margin-top: 0.75rem;
+}
+
+.chart__scroll {
+  max-height: 32rem;
+  overflow: auto;
+}
+
+.chart__details {
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--hairline);
+  font-size: var(--step--1);
+  overflow-wrap: anywhere;
+}
+
+.chart__details summary {
+  cursor: pointer;
+  color: var(--bordeaux);
+  font-weight: 600;
+}
+
+.chart__ranking,
+.chart__sentences {
+  margin: 0.75rem 0 0;
+  padding-left: 1.5rem;
+}
+
+.chart__ranking li + li,
+.chart__sentences li + li {
+  margin-top: 0.5rem;
+}
+
+.chart__ranking strong {
+  margin-left: 0.5rem;
+  white-space: nowrap;
+}
+
+.chart__sentences dl {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+  margin: 0.35rem 0 0.75rem;
+  color: var(--graphite);
+}
+
+.chart__sentences dl div {
+  display: flex;
+  gap: 0.3rem;
+}
+
+.chart__sentences dd {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+@media (max-width: 760px) {
+  .charts__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 .wine {
   display: grid;
   grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
@@ -942,6 +1046,12 @@ button {
   font-size: var(--step-1);
   font-weight: 600;
   letter-spacing: -0.015em;
+}
+
+.why__explanation {
+  margin-top: 0.75rem;
+  overflow-wrap: anywhere;
+  line-height: 1.6;
 }
 
 .split {

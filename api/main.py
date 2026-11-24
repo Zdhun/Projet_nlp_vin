@@ -5,7 +5,7 @@ Expose le moteur sémantique Python (lots 1 à 3) à l'application web TypeScrip
 
   GET  /api/health      -> état du service
   GET  /api/options     -> listes du questionnaire (blocs, arômes, pays, couleurs, prix)
-  POST /api/recommend   -> enregistre les réponses (data/responses/) et renvoie le top 3
+  POST /api/recommend   -> enregistre les réponses et renvoie le top 3 avec ses graphiques
 
 Lancement : uvicorn api.main:app --reload --port 8000
 """
@@ -25,8 +25,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
 from src.embeddings import load_wine_embeddings
+from src.explain import analyze_sentences, explain_recommendation
 from src.recommender import recommend
 from src.reference import ROOT, load_blocks, load_food_pairing, load_wines
+from src.viz import radar_chart, ranking_chart, sentence_heatmap
 
 RESPONSES_DIR = ROOT / "data" / "responses"
 
@@ -191,13 +193,14 @@ def options() -> dict:
 @app.post("/api/recommend")
 def recommend_endpoint(answers: Answers) -> dict:
     engine_answers = to_engine_answers(answers)
-    results = recommend(engine_answers, k=3, wines_df=STATE["wines"],
+    # Un seul classement alimente les trois fiches et le graphique des cinq premiers.
+    results = recommend(engine_answers, k=5, wines_df=STATE["wines"],
                         wine_embeddings=STATE["embeddings"])
 
     # Sauvegarde structurée de chaque réponse (exigence du sujet), sans donnée personnelle.
     response_id = f"{datetime.now(timezone.utc):%Y%m%dT%H%M%S}_{uuid4().hex[:6]}"
     RESPONSES_DIR.mkdir(parents=True, exist_ok=True)
-    formatted = [format_result(i + 1, r) for i, r in enumerate(results)]
+    formatted = [format_result(i + 1, r) for i, r in enumerate(results[:3])]
     record = {"id": response_id, "answers": answers.model_dump(),
               "results": [{"wine_id": r["wine"]["wine_id"], "score": r["score"]}
                           for r in formatted]}
@@ -206,4 +209,38 @@ def recommend_endpoint(answers: Answers) -> dict:
 
     if not formatted:
         raise HTTPException(status_code=404, detail="no_match")
-    return {"id": response_id, "results": formatted}
+
+    # Les explications et la heatmap partagent les mêmes similarités par phrase.
+    analysis = analyze_sentences((
+        answers.description,
+        answers.liked_wine_reason,
+        answers.food_or_occasion,
+    ))
+    for result, item in zip(formatted, results):
+        result["explanation"] = explain_recommendation(item, analysis, answers.max_price)
+
+    heatmap = sentence_heatmap(analysis)
+    blocks = load_blocks()
+    return {
+        "id": response_id,
+        "results": formatted,
+        "analysis": {
+            "radar": radar_chart(results[0]).to_plotly_json(),
+            "ranking": ranking_chart(results).to_plotly_json(),
+            "heatmap": heatmap.to_plotly_json() if heatmap is not None else None,
+            "ranked_wines": [
+                {"title": item["wine"]["title"], "score": round(float(item["score"]), 4)}
+                for item in results
+            ],
+            "sentences": [
+                {
+                    "text": sentence,
+                    "scores": {
+                        block["id"]: round(float(analysis.block_scores[block["name_fr"]][i]), 4)
+                        for block in blocks
+                    },
+                }
+                for i, sentence in enumerate(analysis.sentences)
+            ],
+        },
+    }

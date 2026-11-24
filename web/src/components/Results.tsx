@@ -1,7 +1,9 @@
-import type { Answers, BlockId, Options, Recommendation } from "../types";
+import type { Answers, BlockId, Options, Recommendation, RecommendationAnalysis } from "../types";
+import { AnalysisCharts } from "./AnalysisCharts";
 import { Glass } from "./Glass";
 
 const RANK_LABEL = ["Premier choix", "Deuxième choix", "Troisième choix"];
+const RESULTS_TITLE = ["Votre vin.", "Vos deux vins.", "Vos trois vins."];
 
 const COLOR_LABEL: Record<string, string> = {
   red: "Rouge",
@@ -21,19 +23,20 @@ const pct = (v: number) => Math.round(v * 100);
 
 interface ResultsProps {
   results: Recommendation[];
+  analysis: RecommendationAnalysis;
   answers: Answers;
   options: Options;
   onEdit: () => void;
   onRestart: () => void;
 }
 
-export function Results({ results, answers, options, onEdit, onRestart }: ResultsProps) {
+export function Results({ results, analysis, answers, options, onEdit, onRestart }: ResultsProps) {
   const blockName = (id: BlockId | null) => options.blocks.find((b) => b.id === id)?.name ?? "";
 
   return (
     <main className="results">
       <header className="results__head">
-        <h1 className="results__title">Vos trois vins.</h1>
+        <h1 className="results__title">{RESULTS_TITLE[results.length - 1]}</h1>
         <blockquote className="results__query">« {answers.description.trim()} »</blockquote>
         <div className="results__actions">
           <button className="button button--secondary" onClick={onEdit}>
@@ -44,6 +47,8 @@ export function Results({ results, answers, options, onEdit, onRestart }: Result
           </button>
         </div>
       </header>
+
+      <AnalysisCharts analysis={analysis} blocks={options.blocks} />
 
       {results.map((r) => (
         <article key={r.wine.wine_id} className="wine" aria-labelledby={`wine-${r.wine.wine_id}`}>
@@ -93,6 +98,7 @@ export function Results({ results, answers, options, onEdit, onRestart }: Result
 
             <section className="why" aria-label="Pourquoi ce vin">
               <h3 className="why__title">Pourquoi ce vin</h3>
+              <p className="why__explanation">{r.explanation}</p>
               <div className="split">
                 <Meter label="Sens de votre description" value={r.breakdown.semantic_norm} />
                 <Meter label="Profil de goût partagé" value={r.breakdown.block_affinity_norm} />

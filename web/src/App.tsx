@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { MotionConfig } from "motion/react";
 import { ApiError, fetchOptions, fetchRecommendations } from "./api";
-import type { Answers, Options, Recommendation } from "./types";
+import type { Answers, Options, RecommendResponse } from "./types";
 import { Home } from "./components/Home";
 import { Questionnaire, REVIEW_STEP } from "./components/Questionnaire";
 import { Results } from "./components/Results";
@@ -28,7 +28,7 @@ type Screen =
   | { name: "home" }
   | { name: "quiz"; step: number }
   | { name: "analysing" }
-  | { name: "results"; results: Recommendation[] }
+  | { name: "results"; response: RecommendResponse }
   | { name: "error"; kind: ApiError["kind"] };
 
 // Durée minimale de l'écran d'analyse : le moteur répond en ~0,3 s, trop vite pour
@@ -61,7 +61,7 @@ export default function App() {
       const response = await fetchRecommendations(answers);
       const wait = MIN_ANALYSIS_MS - (Date.now() - started);
       if (wait > 0) await new Promise((r) => setTimeout(r, wait));
-      setScreen({ name: "results", results: response.results });
+      setScreen({ name: "results", response });
     } catch (error) {
       setScreen({ name: "error", kind: error instanceof ApiError ? error.kind : "server" });
     }
@@ -102,7 +102,8 @@ export default function App() {
   } else if (screen.name === "results") {
     content = (
       <Results
-        results={screen.results}
+        results={screen.response.results}
+        analysis={screen.response.analysis}
         answers={answers}
         options={options}
         onEdit={() => setScreen({ name: "quiz", step: REVIEW_STEP })}

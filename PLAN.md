@@ -15,7 +15,7 @@ On reste **simple** : d'abord une version qui marche de bout en bout, ensuite on
 | 2 | Moteur sémantique (embeddings) | ✅ fait | 0 | `src/embeddings.py`, `notebooks/02_embeddings.ipynb` |
 | 3 | Score et recommandation | ✅ fait | 1, 2 | `src/scoring.py`, `src/recommender.py` |
 | 4 | Questionnaire et interface | ✅ fait | 3 | `web/` (React + TypeScript), `api/main.py` (FastAPI) |
-| 5 | Visualisations et explications | Personne E | 3 | `src/explain.py`, `src/viz.py` |
+| 5 | Visualisations et explications | ✅ fait | 3 | `src/explain.py`, `src/viz.py` |
 | 6 | Évaluation, documentation, slides | Personne F | 3 | `notebooks/05_evaluation.ipynb`, `slides/` |
 | 7 | Bonus LLM (facultatif) | Qui a fini en premier | 3 | `src/llm.py` |
 
@@ -98,17 +98,15 @@ puis filtre dur : prix <= budget, couleur si imposée
 
 Lancement : voir le README.
 
-## Lot 5 — Visualisations et explications
+## Lot 5 — Visualisations et explications ✅
 
-1. `src/explain.py` : une explication **par modèles de texte**, sans LLM. Exemple :
-   > *« Ce Pinot Noir correspond à 84 %. Ta phrase “léger et fruité” est proche de “bright red cherry, light-bodied” (0,78). Points forts : Arômes fruités, Structure. Il est dans ton budget (22 $). »*
-2. `src/viz.py`, avec Plotly :
-   - un **radar** des 5 blocs, utilisateur et vin recommandé superposés ;
-   - un **diagramme en barres** des scores du top 5 ;
-   - une **heatmap** des phrases de l'utilisateur face aux blocs ;
-   - (option) une **carte 2D** des 600 vins (UMAP ou t-SNE) avec le point de l'utilisateur.
+- [x] [Explications par modèles de texte](src/explain.py) pour les trois vins affichés. Chaque fiche présente le score, une phrase de l'utilisateur rapprochée d'un repère gustatif, les familles communes et le prix par rapport au budget.
+- [x] [Radar Plotly](src/viz.py) qui superpose le profil utilisateur et celui du premier vin sur les cinq blocs gustatifs.
+- [x] Diagramme en barres des scores des cinq premiers vins éligibles.
+- [x] Heatmap des similarités entre les phrases saisies et les cinq blocs.
+- [ ] Carte 2D facultative des 600 vins (UMAP ou t-SNE) avec le point de l'utilisateur.
 
-✅ **Fini quand** : les graphiques et le texte s'affichent dans l'app.
+Les trois graphiques et les explications s'affichent dans la page de résultats. Le parcours a été vérifié sur ordinateur et sur mobile.
 
 ---
 
