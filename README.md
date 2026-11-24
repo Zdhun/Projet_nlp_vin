@@ -22,4 +22,4 @@ data/
 scripts/prepare_data.py            pipeline de préparation des données
 ```
 
-Détail des données : [data/README.md](data/README.md).
+Détail des données : [data/README.md](data/README.md). Répartition du travail : [PLAN.md](PLAN.md).
