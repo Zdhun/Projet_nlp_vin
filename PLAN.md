@@ -13,7 +13,7 @@ On reste **simple** : d'abord une version qui marche de bout en bout, ensuite on
 | 0 | Données | ✅ fait | — | `data/`, `scripts/prepare_data.py` |
 | 1 | Blocs gustatifs et accords mets-vins | ✅ fait | 0 | `data/processed/blocks.json`, `data/processed/food_pairing.csv`, `src/reference.py` |
 | 2 | Moteur sémantique (embeddings) | ✅ fait | 0 | `src/embeddings.py`, `notebooks/02_embeddings.ipynb` |
-| 3 | Score et recommandation | Personne C | 1, 2 | `src/scoring.py`, `src/recommender.py` |
+| 3 | Score et recommandation | ✅ fait | 1, 2 | `src/scoring.py`, `src/recommender.py` |
 | 4 | Questionnaire et interface | Personne D | 3 (pour brancher) | `app/streamlit_app.py` |
 | 5 | Visualisations et explications | Personne E | 3 | `src/explain.py`, `src/viz.py` |
 | 6 | Évaluation, documentation, slides | Personne F | 3 | `notebooks/05_evaluation.ipynb`, `slides/` |
