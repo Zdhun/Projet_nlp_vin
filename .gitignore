@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.DS_Store
+data/cache/
+.env
+# Sujet fourni par l'enseignante (non versionné)
+Projet - *.pdf
