@@ -12,7 +12,7 @@ On reste **simple** : d'abord une version qui marche de bout en bout, ensuite on
 |---|---|---|---|---|
 | 0 | Données | ✅ fait | — | `data/`, `scripts/prepare_data.py` |
 | 1 | Blocs gustatifs et accords mets-vins | ✅ fait | 0 | `data/processed/blocks.json`, `data/processed/food_pairing.csv`, `src/reference.py` |
-| 2 | Moteur sémantique (embeddings) | Personne B | 0 | `src/embeddings.py`, `notebooks/02_embeddings.ipynb` |
+| 2 | Moteur sémantique (embeddings) | ✅ fait | 0 | `src/embeddings.py`, `notebooks/02_embeddings.ipynb` |
 | 3 | Score et recommandation | Personne C | 1, 2 | `src/scoring.py`, `src/recommender.py` |
 | 4 | Questionnaire et interface | Personne D | 3 (pour brancher) | `app/streamlit_app.py` |
 | 5 | Visualisations et explications | Personne E | 3 | `src/explain.py`, `src/viz.py` |
@@ -44,17 +44,13 @@ Le sujet demande des **catégories ou blocs** et un **score de couverture**. On 
 
 ---
 
-## Lot 2 — Moteur sémantique
+## Lot 2 — Moteur sémantique ✅
 
-1. Notebook `02_embeddings.ipynb` :
-   - prétraitement léger : minuscules, ponctuation, découpage en phrases (le texte de l'utilisateur est découpé avec `nltk` ou `spacy`) ;
-   - **SBERT multilingue** : `paraphrase-multilingual-MiniLM-L12-v2`. Il est rapide, tourne sur CPU et compare directement le français et l'anglais ;
-   - **fastText ou Word2Vec**, exigé par le sujet : moyenne des vecteurs de mots, en version de base ;
-   - **TF-IDF** comme repère « non sémantique ».
-2. `src/embeddings.py` : une fonction `encode(texts) -> np.ndarray`, avec un cache des embeddings des 600 vins dans `data/cache/` (on les calcule une seule fois).
-3. Mini-test qualitatif : 5 requêtes (« un rouge léger et fruité pour un apéro ») et, pour chacune, le top 5 vu par TF-IDF, fastText et SBERT. **Ce tableau ira dans les slides.**
+- [x] Le [notebook](notebooks/02_embeddings.ipynb) découpe les requêtes en phrases avec NLTK et compare TF-IDF, Word2Vec par moyenne des vecteurs de mots et SBERT multilingue (`paraphrase-multilingual-MiniLM-L12-v2`).
+- [x] Le [module d'embeddings](src/embeddings.py) fournit `encode(texts) -> np.ndarray` sur CPU pour les textes français et anglais. Les vecteurs des 600 vins sont réutilisés depuis `data/cache/`.
+- [x] Le mini-test qualitatif affiche les cinq premiers vins selon chaque méthode pour chacune des cinq requêtes, soit 75 résultats disponibles pour les slides.
 
-✅ **Fini quand** : `encode()` fonctionne et le notebook montre la comparaison des 3 méthodes.
+Le notebook a été exécuté intégralement et la réutilisation du cache a été vérifiée.
 
 ---
 
